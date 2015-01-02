@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.bt.camnav.entity.Location;
+import com.bt.camnav.util.Coordinate;
+import com.bt.camnav.util.LocationUtil;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -120,6 +122,31 @@ public class LocationDAOImpl implements LocationDAO {
         Criteria criteria = getCurrentSession().createCriteria(Location.class);
         criteria.add(Restrictions.or(Restrictions.like("name", String.format("%s%s%s", wildcard, name, wildcard)),
                 Restrictions.like("name", String.format("%s%s%s", wildcard, name.toUpperCase(), wildcard))));
+        criteria.setFirstResult(first);
+        criteria.setMaxResults(size);
+
+        List<Location> locations = criteria.list();
+
+        return locations;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Location> filter(Double latitude, Double longitude, Double distance, int first, int size) {
+        if (latitude == null || longitude == null || distance == null)
+            return null;
+
+        Criteria criteria = getCurrentSession().createCriteria(Location.class);
+
+        Coordinate upperBound = LocationUtil.INSTANCE.getUpperBound(latitude.doubleValue(), longitude.doubleValue(),
+                distance.doubleValue());
+        Coordinate lowerBound = LocationUtil.INSTANCE.getLowerBound(latitude.doubleValue(), longitude.doubleValue(),
+                distance.doubleValue());
+
+        criteria.add(Restrictions.and(Restrictions.le("latitude", upperBound.getLatitude()),
+                Restrictions.ge("longitude", upperBound.getLongitude()),
+                Restrictions.ge("latitude", lowerBound.getLatitude()),
+                Restrictions.le("longitude", lowerBound.getLongitude())));
+        
         criteria.setFirstResult(first);
         criteria.setMaxResults(size);
 

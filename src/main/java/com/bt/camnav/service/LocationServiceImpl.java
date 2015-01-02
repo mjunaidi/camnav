@@ -2,12 +2,12 @@ package com.bt.camnav.service;
 
 import java.util.List;
 
-import com.bt.camnav.dao.LocationDAO;
-import com.bt.camnav.entity.Location;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.bt.camnav.dao.LocationDAO;
+import com.bt.camnav.entity.Location;
 
 @Service
 @Transactional
@@ -69,6 +69,11 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public Long countRow() {
         return locationDAO.countRow();
+    }
+
+    @Override
+    public List<Location> filter(Double latitude, Double longitude, Double distance, int first, int size) {
+        return locationDAO.filter(latitude, longitude, distance, first, size);
     }
 
 }
