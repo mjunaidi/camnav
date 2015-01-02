@@ -2,9 +2,7 @@
 
 angular.module('myApp.navigation', ['ngRoute'])
 .config(function($routeProvider, $locationProvider) {
-  $routeProvider.when("/", {
-    templateUrl: "html/location.html"
-  })
+  $routeProvider
   .when("/location", {
     templateUrl: "html/location.html"
   })
@@ -15,7 +13,7 @@ angular.module('myApp.navigation', ['ngRoute'])
     templateUrl: "html/locationEdit.html"
   })
   .otherwise({
-    redirectTo: "/"
+    redirectTo: "/location"
   });
 })
 .run(function($route, $http, $templateCache) {

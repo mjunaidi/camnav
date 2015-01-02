@@ -20,7 +20,7 @@ function initialize() {
   var defaultType = google.maps.MapTypeId.HYBRID;
   map.setCenter(defaultPos);
   map.setMapTypeId(defaultType);
-  map.setZoom(18);
+  map.setZoom(10);
 
   // Create the search box and link it to the UI element.
   var input = /** @type {HTMLInputElement} */(
