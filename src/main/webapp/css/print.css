@@ -1,0 +1,26 @@
+body {
+  padding-top: 0;
+}
+body > .navbar,
+body > .container-fluid .sidebar,
+body > .container-fluid .main .well,
+body > .container-fluid .main .nav
+{
+  display:none;
+}
+body > .container-fluid .main {
+	margin-left: 0;
+	width: 100%;
+}
+.printHidden {
+  display: none !important; 
+}
+.table-responsive {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border: none;
+}
+#topWebsitesContainer {
+	positon: absolute;
+	width: 100%;
+}

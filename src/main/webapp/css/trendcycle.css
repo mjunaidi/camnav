@@ -1,0 +1,53 @@
+/* path finder hack */
+body {
+  padding-top: 40px;
+  overflow-x: hidden;
+}
+
+#viewDetailModal .modal-dialog {
+  width: 95%;
+}
+
+.pagination {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.has-feedback {
+  position: relative;
+}
+
+.has-feedback .form-control {
+  padding-right: 42.5px;
+}
+
+.has-feedback .form-control-feedback {
+  display: block;
+  height: 34px;
+  line-height: 34px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 25px;
+  width: 34px;
+}
+
+.has-feedback .form-control-feedback.form-control-feedback-no-label {
+  top: 1px;
+  cursor: pointer;
+}
+
+form .table .input-group:not(:first-child ) {
+  margin-top: 5px;
+}
+
+form .table .btn:not(:first-child ) {
+  margin-top: 5px;
+}
+
+.table {
+    margin-bottom: 10px;
+}
+.modal-footer {
+    margin-top: 0;
+}

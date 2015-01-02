@@ -1,0 +1,106 @@
+<div class="row row-offcanvas row-offcanvas-left" ng-init="initReport()">
+  <!-- left bar -->
+  <div class="col-sm-3 col-md-2 sidebar sidebar-offcanvas" id="sidebar">
+    <h4 class="sub-header">Select report date</h4>
+    <div>
+      <form class="form-inline" role="form">
+        <fieldset>
+          <label>Filter by date</label>
+          <div class="input-group">
+            <input type="text" name="year" ng-model="search.year" class="form-control input-sm" placeholder="YYYY" size="4" ng-change="searchWebsiteDateKey(search)"/> 
+            <span class="input-group-btn" style="width: 0px;"></span> 
+            <input type="text" name="month" ng-model="search.month" class="form-control input-sm" placeholder="MM" size="2" ng-change="searchWebsiteDateKey(search)"/> 
+            <span class="input-group-btn" style="width: 0px;"></span> 
+            <input type="text" name="day" ng-model="search.day" class="form-control input-sm" placeholder="DD" size="2" ng-change="searchWebsiteDateKey(search)"/>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="sub-header"></div>
+    <ul class="nav nav-sidebar">
+      <li ng-repeat="d in dateKeys | filter:search | orderBy:'dateKey':true"
+	      ng-class="getReportActive(d.dateKey)">
+	      <a ng-click="updateTopWebsites(d.dateKey)">{{ d.dateKey }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+      </li>
+      <li ng-repeat="d in searchedWebsiteDateKeys | orderBy:'dateKey':true"
+        ng-class="getReportActive(d.dateKey)">
+        <a ng-click="updateTopWebsites(d.dateKey)">{{ d.dateKey }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- main container -->
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <!--toggle sidebar button-->
+    <p class="pull-left visible-xs printHidden">
+      <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas" ng-click="showSidebar()" title="toggle sidebar">
+        <i class="glyphicon glyphicon glyphicon-th-list"></i>
+      </button>
+    </p>
+
+    <div class="well">
+      <form class="form-inline" role="form">
+        <div class="input-group">
+          <label>Limit report size</label>
+          <input type="text" ng-model="topLimit" ng-change="updateTopLimit()"
+            class="form-control input-sm" placeholder="Limit number of websites in the report..." size="3" />
+        </div>
+      </form>
+    </div>
+    
+    <!-- report container -->
+    <div class="row" ng-hide="topWebsites === false">
+      <div class="col-sm-12 col-lg-12">
+        <!-- report tabs -->
+        <div>
+          <ul class="nav nav-tabs">
+            <li ng-class="getReportTypeActive('list')"><a ng-click="setReportType('list')">List</a></li>
+            <li ng-class="getReportTypeActive('chart')"><a ng-click="setReportType('chart')">Chart</a></li>
+          </ul>
+        </div>
+        
+        <!-- report tab containers -->
+        <div id="topWebsiteTabsContainer">
+          <!-- top websites in charts -->
+          <div ng-show="reportType=='chart'">
+            <div class="pull-right printHidden">
+              <button id="printBtn" type="button" class="btn btn-default" ng-click="print()">
+                <span class="glyphicon glyphicon-print"></span> Print
+              </button>
+            </div>
+            <h3></h3>
+            <div id="topWebsitesContainer"></div>
+          </div>
+          
+          <!-- top websites in table -->
+          <div id="topWebsiteListContainer" class="table-responsive" ng-show="reportType!='chart'">
+            <div class="pull-right printHidden">
+              <button id="printBtn" type="button" class="btn btn-default" ng-click="print()">
+                <span class="glyphicon glyphicon-print"></span> Print
+              </button>
+            </div>
+            <h3>Top {{ topLimit }} Websites on {{ dateKey }}</h3>
+            <table class="table table-striped table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Website</th>
+                  <th style="text-align:center">Visits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="w in topWebsites | orderBy:'visits':true | limitTo:topLimit">
+                  <td>{{ $index + 1 }}</td>
+                  <td>{{ w.name }}</td>
+                  <td style="text-align:right;padding-right:15px;">{{ w.visits }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<!--/row-->

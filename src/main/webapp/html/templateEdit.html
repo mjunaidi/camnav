@@ -1,0 +1,134 @@
+<div class="row" ng-init="templateService.initTemplatePage($route)">
+  <!-- begin form -->
+  <form role="form" name="templateEditForm" ng-submit="templateService.updateTemplate($location, templateService.template)">
+    <div class="col-12 col-sm-12 col-lg-12 main">
+      <h3>
+        <button type="button" class="btn btn-default" ng-click="templateService.viewTemplates($location)">
+          &larr; Back
+        </button>
+        <span>{{templateService.template.name}}</span>
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Save
+          </button>
+          <button type="button" class="btn btn-default" ng-click="templateService.initTemplatePage($route)">Reset</button>
+        </div>
+      </h3>
+
+      <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control input-sm" name="name" ng-model="templateService.template.name" >
+          </div>
+          
+          <div>
+            <h4>Properties</h4>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th width="3%">#</th>
+                  <th width="37%">Name</th>
+                  <th width="37%">Label</th>
+                  <th width="23%">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="p in templateService.template.properties">
+                  <td>{{$index+1}}</td>
+                  <td>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="p.name">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control input-sm" name="label" ng-model="p.label">
+                  </td>
+                  <td>
+                    <select class="form-control input-sm" name="type" ng-options="type for type in typeService.types" ng-model="p.type"></select>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <button class="btn btn-danger btn-sm" type="button" ng-click="templateService.removeProperty(templateService.template,p)">
+                          <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="templateService.addNewProperty(templateService.template)">
+                      <span class="glyphicon glyphicon-plus"></span> Add new property
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div>
+            <h4>Components</h4>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th width="3%">#</th>
+                  <th width="37%">Name</th>
+                  <th width="37%">Label</th>
+                  <th width="23%">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="p in templateService.template.components">
+                  <td>{{$index+1}}</td>
+                  <td>
+                    <input type="text" class="form-control input-sm" name="name" ng-model="p.name">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control input-sm" name="label" ng-model="p.label">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control input-sm" name="type" ng-model="p.type">
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <button class="btn btn-danger btn-sm" type="button" ng-click="templateService.removeComponent(templateService.template,p)">
+                          <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="templateService.addNewComponent(templateService.template)">
+                      <span class="glyphicon glyphicon-plus"></span> Add new component
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+      
+      <h3>
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Save
+          </button>
+          <button type="button" class="btn btn-default" ng-click="templateService.initTemplatePage($route)">Reset</button>
+        </div>
+      </h3>
+    </div>
+  </form>
+  <!--/form-->
+</div>
+<!--/row-->

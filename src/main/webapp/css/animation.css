@@ -1,0 +1,6 @@
+.nav-sidebar > li > a {
+   -webkit-transition-duration: 0.33s;
+   -webkit-transition-timing-function: ease-in-out;
+   transition-duration: 0.33s;
+   transition-timing-function: ease-in-out;
+}

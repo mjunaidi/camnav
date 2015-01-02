@@ -1,0 +1,95 @@
+<div class="row" ng-init="contentService.initPage($route)">
+  <div class="col-12 col-sm-12 col-lg-12 main">
+
+    <div class="row">
+      <div class="col-12 col-sm-12 col-lg-12">
+        <div class="pull-right">
+          <button type="button" class="btn btn-success btn-sm" ng-click="contentService.addNewContent($location, contentService.template)">
+            <span class="glyphicon glyphicon-plus"></span> Add new {{contentService.template.name}}
+          </button>
+          <button type="button" class="btn btn-danger btn-sm" ng-click="contentService.removeAllContents()">
+            <span class="glyphicon glyphicon-remove"></span> Remove all {{contentService.template.name}}s
+          </button>
+        </div>
+        <h3>{{contentService.template.name}}s</h3>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12 col-sm-12 col-lg-12">
+        <form role="form" name="contentSearchForm">
+          <div class="form-group has-feedback">
+            <input type="search" name="searchCircuit" results="5" ng-model="contentSearchForm.search" class="form-control"
+              placeholder="Type here to search..."
+              ng-change="contentService.searchContents(contentSearchForm.search)">
+            <span ng-if="contentSearchForm.search" 
+              class="glyphicon glyphicon-remove-circle form-control-feedback form-control-feedback-no-label"
+              ng-click="contentService.clearSearch(contentSearchForm)"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12 col-sm-12 col-lg-12">
+        <h4 ng-if="contentSearchForm.search">
+          Results for '{{contentSearchForm.search}}'
+          <a href="" ng-click="contentService.clearSearch(contentSearchForm)" class="btn btn-default">
+            clear results
+          </a>
+        </h4>
+        <!-- ui bootstrap pagination -->
+        <pagination ng-if="!contentSearchForm.search" ng-change="contentService.pageChanged()" direction-links="true" boundary-links="true" rotate="false"
+          total-items="contentService.pagination.totalItem" ng-model="contentService.pagination.current" max-size="contentService.pagination.max"
+          previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-12 col-lg-12">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-condensed">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>json</th>
+                <th>Template</th>
+                <th>Updated</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="c in contentService.contents | orderBy:'c.name':true">
+                <td ng-if="!contentSearchForm.search">{{ $index + 1 + contentService.first }}</td>
+                <td ng-if="contentSearchForm.search">{{ $index + 1 }}</td>
+                <td>{{ c.name }}</td>
+                <td>{{ c | json }}</td>
+                <td>{{ c.template.name }}</td>
+                <td>{{ c.updated | date:'yyyy-MM-dd HH:mm Z' }}</td>
+                <td>
+                  <button type="button" class="btn btn-default btn-xs"
+                    ng-click="contentService.editContent($location, c.template, c.id)">
+                    <span class="glyphicon glyphicon-asterisk"></span> Copy
+                  </button>
+                  <button type="button" class="btn btn-warning btn-xs"
+                    ng-click="contentService.editContent($location, c.template, c.id)">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                  </button>
+                  <button type="button" class="btn btn-danger btn-xs pull-right"
+                    ng-click="contentService.removeContent(c.id)">
+                    <span class="glyphicon glyphicon-remove"></span> Remove
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--/span-->
+    </div>
+    <!--/row-->
+  </div>
+  <!--/span-->
+</div>
+<!--/row-->

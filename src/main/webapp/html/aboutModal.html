@@ -1,0 +1,30 @@
+<!-- Modal -->
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">About</h4>
+      </div>
+      <div class="modal-body" ng-if="about">
+        <div class="media">
+          <div class="pull-left">
+            <img class="media-object img-circle img-thumbnail" ng-src="{{ about.logo }}">
+          </div>
+          <div class="media-body">
+            <h3 class="media-heading">{{ about.name }}</h3>
+            <p class="lead">{{ about.description }}</p>
+          </div>
+        </div>
+        <p>{{ about.version }}</p>
+        <p ng-bind-html="getUnsafeHtml(about.developer)"></p>
+        <p ng-bind-html="getUnsafeHtml(about.copyright)"></p>
+        <p ng-bind-html="getUnsafeHtml(about.credits)"></p>
+        <p ng-bind-html="getUnsafeHtml(about.themes)"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

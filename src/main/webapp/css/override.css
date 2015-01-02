@@ -1,0 +1,20 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+body > div.container-fluid {
+	overflow-x: hidden;
+}
+a {
+  cursor: pointer;
+}
+.nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
+  text-decoration: none;
+  background-color: #428bca;
+}
+.nav-sidebar > li > a > .glyphicon {
+  display: none;
+  line-height: inherit;
+}
+.nav-sidebar > .active > a > .glyphicon {
+  display: block;
+}

@@ -1,0 +1,105 @@
+<div class="row" ng-init="websiteService.initWebsitePage($route)">
+  <!-- begin form -->
+  <form role="form" name="websiteEditForm" ng-submit="websiteService.updateWebsite(websiteService.website)">
+    <div class="col-12 col-sm-12 col-lg-12 main">
+      <h3>
+        <button type="button" class="btn btn-default" ng-click="websiteService.viewWebsites($location)">
+          &larr; Back
+        </button>
+        <span>{{websiteService.website.name}}</span>
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Save
+          </button>
+          <button type="button" class="btn btn-default" ng-click="websiteService.initWebsitePage($route)">Reset</button>
+        </div>
+      </h3>
+
+      <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control input-sm" name="name" ng-model="websiteService.website.name" >
+          </div>
+          <div class="form-group">
+            <label for="slug">Slug</label>
+            <input type="text" class="form-control input-sm" name="slug" ng-model="websiteService.website.slug" >
+          </div>
+          <div class="form-group">
+            <label for="url">Url</label>
+            <input type="text" class="form-control input-sm" name="url" ng-model="websiteService.website.url" >
+          </div>
+          <!-- <pre>{{websiteService.website|json}}</pre> -->
+        </div>
+        <!--/span-->
+      </div>
+      <!--/row-->
+
+      <!-- List of articles -->
+      <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12">
+          <div class="pull-right">
+            <button type="button" class="btn btn-success btn-sm" ng-click="articleService.addNewArticle($location,websiteService.website)">
+              <span class="glyphicon glyphicon-plus"></span> Add new article
+            </button>
+          </div>
+          <h3>Articles</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Slug</th>
+                  <th>Url</th>
+                  <th>Description</th>
+                  <th>Content</th>
+                  <th>Updated</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="w in websiteService.website.articles | orderBy:'w.name':true">
+                  <td ng-if="!articleSearchForm.search">{{ $index + 1 + articleService.first }}</td>
+                  <td ng-if="articleSearchForm.search">{{ $index + 1 }}</td>
+                  <td>{{ w.name }}</td>
+                  <td>{{ w.slug }}</td>
+                  <td>{{ w.url }}</td>
+                  <td>{{ w.description }}</td>
+                  <td>{{ w.content }}</td>
+                  <td>{{ w.updated | date:'yyyy-MM-dd HH:mm Z' }}</td>
+                  <td>
+                    <button type="button" class="btn btn-warning btn-xs"
+                      ng-click="articleService.editArticle($location, w.id)">
+                      <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs pull-right"
+                      ng-click="articleService.removeArticle(w.id)">
+                      <span class="glyphicon glyphicon-remove"></span> Remove
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--/end list of articles-->
+
+      <h3>
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Save
+          </button>
+          <button type="button" class="btn btn-default" ng-click="websiteService.initWebsitePage($route)">Reset</button>
+        </div>
+      </h3>
+    </div>
+  </form>
+  <!--/form-->
+</div>
+<!--/row-->

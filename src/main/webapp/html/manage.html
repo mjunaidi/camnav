@@ -1,0 +1,92 @@
+<div ng-if="isLoggedIn" class="row">
+  <div class="col-12 col-sm-12 col-lg-12 main">
+    <h3>Data Manager</h3>
+    
+    <div ng-if="fileUploadResponse" class="alert" ng-class="getAlertClass(fileUploadResponse.status)">{{ fileUploadResponse.message }}</div>
+        
+    <div class="well">
+      <form id="uploadForm" role="form" method="POST" enctype="multipart/form-data" ng-submit="submitUploadForm()">
+        <div class="form-group">
+          <label for="file">Please select a CSV file (*.csv) to upload</label>
+          <input type="file" name="file" ng-fileupload="theFile" />
+          <p class="help-block">Uploaded file's data is extracted and saved into the database.</p>
+        </div>
+        <div ng-if="theFile" ng-show="theFile" class="form-group">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Selected file information</h3>
+            </div>
+            <table class="table table-condensed table-hover">
+              <tbody>
+                <tr>
+                  <th>File name</th><td>{{ theFile.name }}</td>
+                </tr>
+                <tr>
+                  <th>Size</th><td>{{ theFile.size }} KB</td>
+                </tr>
+                <tr>
+                  <th>Modified date</th><td>{{ theFile.lastModifiedDate | date:'d MMM y h:mm:ss a' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <input type="submit" value="upload" class="btn btn-primary" />
+          <!-- <input type="button" value="upload" class="btn btn-primary" ng-click="uploadFile(theFile)" /> -->
+          <input type="reset" value="cancel" class="btn btn-default" ng-click="resetForm()" />
+        </div>
+      </form>
+    </div>
+    
+    <div class="row">
+      <div class="col-12 col-sm-12 col-lg-12">
+        <form role="form">
+          <div class="form-group">
+            <input type="search" 
+              name="findWebsite" 
+              results="5" 
+              ng-model="search" 
+              class="form-control" 
+              placeholder="Type here to search...">
+          </div>
+        </form>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-condensed">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Website</th>
+                <th style="text-align:center">Visits</th>
+                <th>Updated</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="w in websites | filter:search | orderBy:'date':true">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ w.date | date:'yyyy-MM-dd' }}</td>
+                <td>{{ w.name }}</td>
+                <td style="text-align:right;padding-right:15px;">{{ w.visits }}</td>
+                <td>{{ w.updated | date:'yyyy-MM-dd HH:mm Z' }}</td>
+                <td>
+                  <button type="button" class="btn btn-danger btn-xs" ng-click="deleteWebsite(w.id)">
+                    <span class="glyphicon glyphicon-remove"></span> Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!--/span-->
+    </div><!--/row-->
+  </div>
+  <!--/span-->
+</div>
+<!--/row-->
+<div ng-if="!isLoggedIn" class="row">
+  <div class="col-12 col-sm-12 col-lg-12">
+    <div class="alert alert-warning">Please log in to view this page!</div>
+  </div>
+  <!--/span-->
+</div>
+<!--/row-->

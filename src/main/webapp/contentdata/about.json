@@ -1,0 +1,44 @@
+{
+  "name" : "CamNav",
+  "logo" : "/assets/ico/apple-touch-icon-57-precomposed.png",
+  "description" : "Showing the way.",
+  "version" : "Version 1.0",
+  "developer" : "Programmed by: <strong>Mohd Junaidi Bin Jusoh</strong>",
+  "copyright" : "&copy; Mohd Junaidi Bin Jusoh 2014",
+  "credits" : "This software is made possible by Java J2EE, Spring framework, Apache Commons, Apache Camel, AngularJS, HighCharts, Twitter's Bootstrap and other open source software.",
+  "themes" : "Themes provided by Bootswatch.",
+  "links" : [
+    {
+      "name" : "Java J2EE",
+      "url" : "http://www.oracle.com/technetwork/java/javaee/overview/index.html"
+    },
+    {
+      "name" : "Spring framework",
+      "url" : "http://spring.io/"
+    },
+    {
+      "name" : "Apache Commons",
+      "url" : "http://commons.apache.org/"
+    },
+    {
+      "name" : "Apache Camel",
+      "url" : "https://camel.apache.org/"
+    },
+    {
+      "name" : "AngularJS",
+      "url" : "http://angularjs.org/"
+    },
+    {
+      "name" : "HighCharts",
+      "url" : "http://www.highcharts.com/"
+    },
+    {
+      "name" : "Twitter's Bootstrap",
+      "url" : "http://getbootstrap.com/"
+    },
+    {
+      "name" : "Bootswatch",
+      "url" : "http://bootswatch.com/"
+    }
+  ]
+}
