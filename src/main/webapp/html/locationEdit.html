@@ -1,6 +1,6 @@
 <div class="row" ng-init="locationService.initLocationPage($route)">
   <!-- begin form -->
-  <form role="form" name="locationEditForm" ng-submit="locationService.updateLocation($location, locationService.location)">
+  <form role="form" id="locationEditForm" name="locationEditForm" ng-submit="locationService.updateLocation($location, locationService.location)">
     <div class="col-12 col-sm-12 col-lg-12 main">
       <h3>
         <button type="button" class="btn btn-default" ng-click="locationService.viewLocations($location)">
@@ -28,15 +28,28 @@
           <div class="row">
             <div class="col-6 col-sm-6 col-lg-6">
               <div class="form-group">
-                <label for="name">Latitude</label> <input type="text" class="form-control input-sm" name="latitude"
-                  ng-model="locationService.location.latitude">
+                <label for="name">Latitude</label>
+                <input type="text" class="form-control input-sm" name="latitude"
+                  ng-model="locationService.location.latitude" >
               </div>
             </div>
             <div class="col-6 col-sm-6 col-lg-6">
               <div class="form-group">
-                <label for="name">Longitude</label> <input type="text" class="form-control input-sm" name="longitude"
-                  ng-model="locationService.location.longitude">
+                <label for="name">Longitude</label>
+                <input type="text" class="form-control input-sm" name="longitude"
+                  ng-model="locationService.location.longitude" >
               </div>
+            </div>
+          </div>
+
+          <!-- display map -->
+          <div class="row">
+            <div class="col-12 col-sm-12 col-lg-12">
+              <button id="map-refresh" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-refresh"></span>
+              </button>
+              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+              <div id="map-canvas"></div>
             </div>
           </div>
 
@@ -58,3 +71,7 @@
   <!--/form-->
 </div>
 <!--/row-->
+
+<script type="text/javascript">
+initialize();
+</script>

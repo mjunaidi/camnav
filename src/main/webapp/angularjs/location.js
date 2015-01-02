@@ -175,9 +175,18 @@ locationModule.factory('LocationService', ['$rootScope', '$http', 'Storage', fun
     service.locations = locations;
   };
   
+  service.assignPosition = function() {
+    var form = document.getElementById('locationEditForm');
+    var latFld = form.latitude;
+    var lngFld = form.longitude;
+    service.location.latitude = latFld.value;
+    service.location.longitude = lngFld.value;
+  };
+  
   service.updateLocation = function($location, location) {
     var url;
-    
+    // TODO: somehow when assigning position from map, it didn't update ngModel.
+    service.assignPosition();
     if (!location.id) {
       url = service.path + 'add';
       service.updateLocationHelper($location, location, url, true);
