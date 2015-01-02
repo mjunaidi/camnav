@@ -208,7 +208,7 @@ locationModule.factory('LocationService', ['$rootScope', '$http', 'Storage', fun
     if (keyword) {
       $http.get(url).
         success(function(data, status, headers, config) {
-          service.$$locations = data;
+          service.locations = data;
         }).
         error(function(data, status, headers, config) {
           console.log(data);
