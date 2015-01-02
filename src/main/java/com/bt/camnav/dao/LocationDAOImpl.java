@@ -3,10 +3,6 @@ package com.bt.camnav.dao;
 import java.util.Date;
 import java.util.List;
 
-import com.bt.camnav.entity.Location;
-import com.bt.camnav.util.Coordinate;
-import com.bt.camnav.util.LocationUtil;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +10,10 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.bt.camnav.entity.Location;
+import com.bt.camnav.util.Coordinate;
+import com.bt.camnav.util.LocationUtil;
 
 @Repository
 public class LocationDAOImpl implements LocationDAO {
@@ -119,9 +119,12 @@ public class LocationDAOImpl implements LocationDAO {
             return null;
 
         String wildcard = "%";
+        String keyword = String.format("%s%s%s", wildcard, name, wildcard);
+        
         Criteria criteria = getCurrentSession().createCriteria(Location.class);
-        criteria.add(Restrictions.or(Restrictions.like("name", String.format("%s%s%s", wildcard, name, wildcard)),
-                Restrictions.like("name", String.format("%s%s%s", wildcard, name.toUpperCase(), wildcard))));
+        criteria.add(Restrictions.or(Restrictions.ilike("name", keyword),
+                Restrictions.ilike("description", keyword)));
+
         criteria.setFirstResult(first);
         criteria.setMaxResults(size);
 
@@ -146,7 +149,7 @@ public class LocationDAOImpl implements LocationDAO {
                 Restrictions.ge("longitude", upperBound.getLongitude()),
                 Restrictions.ge("latitude", lowerBound.getLatitude()),
                 Restrictions.le("longitude", lowerBound.getLongitude())));
-        
+
         criteria.setFirstResult(first);
         criteria.setMaxResults(size);
 
