@@ -163,12 +163,35 @@ public class LocationController {
 
     @RequestMapping(value = "/api/filter/{latitude}/{longitude}/{distance}/{first}/{size}", method = RequestMethod.GET)
     @ResponseBody
-    public String search(@PathVariable Double latitude, @PathVariable Double longitude, @PathVariable Double distance,
+    public String filter(@PathVariable Double latitude, @PathVariable Double longitude, @PathVariable Double distance,
             @PathVariable Integer first, @PathVariable Integer size) {
         List<Location> locations = locationService.filter(latitude, longitude, distance, first, size);
 
         JsonArray array = (JsonArray) JsonUtil.INSTANCE.jsonize(locations);
 
         return array.toString();
+    }
+
+    /**
+     * Select the first location record and do filter against its coordinate.
+     * @return
+     */
+    @RequestMapping(value = "/api/test", method = RequestMethod.GET)
+    @ResponseBody
+    public String test() {
+    	List<Location> locations = locationService.list();
+    	Double distance = Double.valueOf(5.0); // 5 km
+    	if (locations != null && !locations.isEmpty()) {
+    		for (Location location : locations) {
+    			if (location != null) {
+    				Double latitude = location.getLatitude();
+    				Double longitude = location.getLongitude();
+    				if (latitude != null && longitude != null) {
+    					return filter(latitude, longitude, distance, 0, 500);
+    				}
+    			}
+    		}
+    	}
+    	return JsonUtil.EMPTY_JSON;
     }
 }
