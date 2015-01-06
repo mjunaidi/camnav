@@ -1,4 +1,4 @@
-function MainCtrl(Navigation, LocationService, Storage, filesService, UserService, AboutService, $filter, $route, $routeParams, $scope, $location, $http, $sce) {
+function MainCtrl(Navigation, LocationService, Storage, filesService, UserService, AboutService, $filter, $route, $routeParams, $scope, $location, $http, $sce, $timeout) {
 
   $scope.$route = $route;
   $scope.$location = $location;
@@ -25,6 +25,14 @@ function MainCtrl(Navigation, LocationService, Storage, filesService, UserServic
   
   $scope.init = function() {
     $scope.initThemes();
+    $scope.pace();
+  };
+  
+  $scope.pace = function() {
+    if ($scope.$location.path() == '/location') {
+      $scope.locationService.init();
+    }
+    $timeout( function(){ $scope.pace(); }, 5000);
   };
   
   /* Login */
