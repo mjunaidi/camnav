@@ -36,49 +36,6 @@
         </div>
       </form>
     </div>
-    
-    <div class="row">
-      <div class="col-12 col-sm-12 col-lg-12">
-        <form role="form">
-          <div class="form-group">
-            <input type="search" 
-              name="findWebsite" 
-              results="5" 
-              ng-model="search" 
-              class="form-control" 
-              placeholder="Type here to search...">
-          </div>
-        </form>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-condensed">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Website</th>
-                <th style="text-align:center">Visits</th>
-                <th>Updated</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="w in websites | filter:search | orderBy:'date':true">
-                <td>{{ $index + 1 }}</td>
-                <td>{{ w.date | date:'yyyy-MM-dd' }}</td>
-                <td>{{ w.name }}</td>
-                <td style="text-align:right;padding-right:15px;">{{ w.visits }}</td>
-                <td>{{ w.updated | date:'yyyy-MM-dd HH:mm Z' }}</td>
-                <td>
-                  <button type="button" class="btn btn-danger btn-xs" ng-click="deleteWebsite(w.id)">
-                    <span class="glyphicon glyphicon-remove"></span> Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div><!--/span-->
-    </div><!--/row-->
   </div>
   <!--/span-->
 </div>

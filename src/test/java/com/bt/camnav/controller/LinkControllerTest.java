@@ -32,13 +32,6 @@ public class LinkControllerTest {
 	}
 	
 	@Test
-	public void testHomePage() throws Exception {
-		mockMvc.perform(get("/home.html"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("home"));
-	}
-	
-	@Test
 	public void testRootPage() throws Exception {
 		mockMvc.perform(get("/"))
 			.andExpect(status().isOk())
